@@ -197,6 +197,7 @@ document.getElementById('itemTypeForm').addEventListener('submit', async (e) => 
     }
 });
 
+
 reportForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
