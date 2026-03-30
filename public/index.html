@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fallout 4 Settlement Supply Manager</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="screen-glow"></div>
+    <div class="container">
+        <header>
+        <h1>Fallout 4 Settlement Supply Manager</h1>
+        <p>The ultimate tracker for supply runs across the Commonwealth. :3</p>
+        </header>
+
+        <section class="panel">
+        <h2>Main Table: Supply Runs</h2>
+        <form id="supplyRunForm" class="grid-form">
+            <input type="hidden" id="run_id" />
+
+            <div>
+            <label for="settlement_id">Settlement</label>
+            <select id="settlement_id" required></select>
+            </div>
+
+            <div>
+            <label for="faction_id">Faction</label>
+            <select id="faction_id" required></select>
+            </div>
+
+            <div>
+            <label for="item_type_id">Item Type</label>
+            <select id="item_type_id" required></select>
+            </div>
+
+                    <div>
+            <label for="run_date">Run Date</label>
+            <input type="date" id="run_date" required />
+            </div>
+
+            <div>
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" min="1" required />
+            </div>
+
+            <div>
+            <label for="cap_cost">Cap Cost</label>
+            <input type="number" id="cap_cost" min="0" step="0.01" required />
+            </div>
+
+            <div class="full-width">
+            <label for="notes">Notes</label>
+            <textarea id="notes" rows="3"></textarea>
+            </div>
+
+            <div class="full-width button-row">
+            <button type="submit">Save Supply Run</button>
+            <button type="button" id="cancelEditBtn">Cancel Edit</button>
+            </div>
+        </form>
+        </section>
+
+        <section class="panel three-col-support">
+        <div>
+            <h2>Add Settlement</h2>
+            <form id="settlementForm">
+            <label for="newSettlementName">Name</label>
+            <input type="text" id="newSettlementName" required />
+
+            <label for="newSettlementRegion">Region</label>
+            <input type="text" id="newSettlementRegion" />
+
+            <button type="submit">Add Settlement</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Add Faction</h2>
+            <form id="factionForm">
+            <label for="newFactionName">Name</label>
+            <input type="text" id="newFactionName" required />
+            <button type="submit">Add Faction</button>
+            </form>
+        </div>
+
+        <div>
+            <h2>Add Item Type</h2>
+            <form id="itemTypeForm">
+            <label for="newItemTypeName">Name</label>
+            <input type="text" id="newItemTypeName" required />
+            <button type="submit">Add Item Type</button>
+            </form>
+        </div>
+        </section>
+
+        <section class="panel">
+        <h2>Current Supply Runs</h2>
+        <div class="table-wrapper">
+            <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Settlement</th>
+                <th>Faction</th>
+                <th>Item Type</th>
+                <th>Quantity</th>
+                <th>Cap Cost</th>
+                <th>Notes</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="supplyRunsTableBody"></tbody>
+            </table>
+        </div>
+        </section>
+
+        <section class="panel">
+        <h2>Report Generator</h2>
+        <form id="reportForm" class="grid-form">
+            <div>
+            <label for="report_settlement_id">Settlement</label>
+            <select id="report_settlement_id">
+                <option value="">All Settlements</option>
+            </select>
+            </div>
+
+            <div>
+            <label for="report_faction_id">Faction</label>
+            <select id="report_faction_id">
+                <option value="">All Factions</option>
+            </select>
+            </div>
+
+            <div>
+            <label for="report_start_date">Start Date</label>
+            <input type="date" id="report_start_date" />
+            </div>
+
+            <div>
+            <label for="report_end_date">End Date</label>
+            <input type="date" id="report_end_date" />
+            </div>
+
+            <div class="full-width button-row">
+            <button type="submit">Generate Report</button>
+            </div>
+        </form>
+
+        <div id="reportStats" class="stats-box"></div>
+
+        <div class="table-wrapper">
+            <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Settlement</th>
+                <th>Faction</th>
+                <th>Item Type</th>
+                <th>Quantity</th>
+                <th>Cap Cost</th>
+                <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="reportTableBody"></tbody>
+            </table>
+        </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
