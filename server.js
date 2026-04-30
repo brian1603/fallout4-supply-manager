@@ -102,7 +102,7 @@ async function initializeDatabase() {
     const itemTypeCount = await getQuery(`SELECT COUNT(*) AS count FROM item_types`);
     const runCount = await getQuery(`SELECT COUNT(*) AS count FROM supply_runs`);
 
-    // Stage 3: Injection Protection
+    // Stage 3: example for prepared statements (?)
     if (settlementCount.count === 0) {
         const settlements = [
         ['Sanctuary Hills', 'Commonwealth Northwest'],
@@ -156,6 +156,8 @@ app.get('/api/lookups', async (req, res) => {
     }
 });
 
+//Stage 3 indexing target
+// Index date_sort already has run_date DESC, run_id DESC, so sql is able to return sorted rows more efficiently using index.
 app.get('/api/supply-runs', async (req, res) => {
     try {
         const rows = await allQuery(`
@@ -276,6 +278,9 @@ app.get('/api/report', async (req, res) => {
         JOIN item_types i ON sr.item_type_id = i.item_type_id
         WHERE 1 = 1
         `;
+
+        // Benefits from: report_filter on supply_runs()
+        // SQL is able to use index to find rows for matching settlement, faction, and date.
 
         const params = [];
     
