@@ -86,11 +86,23 @@ async function initializeDatabase() {
         )
     `);
 
+    // For Stage 3: INDEX!!!
+    await runQuery(`
+        CREATE INDEX IF NOT EXISTS idx_supply_runs_report_filter
+        ON supply_runs(settlement_id, faction_id, run_date)
+    `);
+
+    await runQuery(`
+        CREATE INDEX IF NOT EXISTS idx_supply_runs_date_sort
+        ON supply_runs(run_date DESC, run_id DESC)
+    `);
+
     const settlementCount = await getQuery(`SELECT COUNT(*) AS count FROM settlements`);
     const factionCount = await getQuery(`SELECT COUNT(*) AS count FROM factions`);
     const itemTypeCount = await getQuery(`SELECT COUNT(*) AS count FROM item_types`);
     const runCount = await getQuery(`SELECT COUNT(*) AS count FROM supply_runs`);
 
+    // Stage 3: Injection Protection
     if (settlementCount.count === 0) {
         const settlements = [
         ['Sanctuary Hills', 'Commonwealth Northwest'],
